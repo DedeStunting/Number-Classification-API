@@ -21,6 +21,7 @@ function isPrime(num) {
 
 // Helper function to check if a number is a perfect number
 function isPerfect(num) {
+    if (num <= 0) return false; // Perfect numbers are positive
     let sum = 0;
     for (let i = 1; i <= num / 2; i++) {
         if (num % i === 0) sum += i;
@@ -30,14 +31,18 @@ function isPerfect(num) {
 
 // Helper function to check if a number is an Armstrong number
 function isArmstrong(num) {
+    if (num < 0) return false; // Armstrong numbers are only positive
     const digits = num.toString().split('');
     const sum = digits.reduce((acc, digit) => acc + Math.pow(Number(digit), digits.length), 0);
     return sum === num;
 }
 
-// Function to calculate the digit sum
+// Function to calculate the digit sum (absolute value for negative numbers)
 function digitSum(num) {
-    return num.toString().split('').reduce((acc, digit) => acc + Number(digit), 0);
+    return Math.abs(num)
+        .toString()
+        .split('')
+        .reduce((acc, digit) => acc + Number(digit), 0);
 }
 
 // Function to fetch a fun fact from Numbers API
@@ -55,14 +60,14 @@ app.get('/api/classify-number', async (req, res) => {
     const { number } = req.query;
 
     // Validate input
-    if (!number) {
-        return res.status(400).json({ error: "Number parameter is required." });
+    if (number === undefined || number.trim() === "") {
+        return res.status(400).json({ error: true, number: "" });
     }
 
     const parsedNumber = Number(number);
 
     if (!Number.isInteger(parsedNumber)) {
-        return res.status(400).json({ number, error: "Only integers are allowed." });
+        return res.status(400).json({ error: true, number });
     }
 
     const properties = [];
