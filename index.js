@@ -32,9 +32,9 @@ function isPerfect(num) {
 // Helper function to check if a number is an Armstrong number
 function isArmstrong(num) {
     if (num < 0) return false; // Armstrong numbers are only positive
-    const digits = num.toString().split('');
+    const digits = Math.abs(num).toString().split(''); // Handle negative numbers properly
     const sum = digits.reduce((acc, digit) => acc + Math.pow(Number(digit), digits.length), 0);
-    return sum === num;
+    return sum === Math.abs(num);
 }
 
 // Function to calculate the digit sum (absolute value for negative numbers)
@@ -51,6 +51,7 @@ async function getFunFact(num) {
         const response = await axios.get(`http://numbersapi.com/${num}?json`);
         return response.data.text;
     } catch (error) {
+        console.error("Error fetching fun fact:", error.message);
         return 'No fun fact available.';
     }
 }
@@ -61,13 +62,18 @@ app.get('/api/classify-number', async (req, res) => {
 
     // Validate input
     if (number === undefined || number.trim() === "") {
-        return res.status(400).json({ error: true, number: "" });
+        return res.status(400).json({ error: true, message: "Number parameter is required." });
+    }
+
+    // Ensure valid numeric input
+    if (!/^[-+]?\d+$/.test(number)) {
+        return res.status(400).json({ error: true, message: "Invalid number format. Must be an integer." });
     }
 
     const parsedNumber = Number(number);
 
     if (!Number.isInteger(parsedNumber)) {
-        return res.status(400).json({ error: true, number });
+        return res.status(400).json({ error: true, message: "Number must be an integer." });
     }
 
     const properties = [];
