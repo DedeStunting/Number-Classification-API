@@ -3,7 +3,6 @@ This API takes a number as input and returns its mathematical properties along w
 
 # 🌍 Live API URL
 👉 Base URL: https://number-classification-api-0.onrender.com/api/classify-number?number=371
-(Replace with your actual deployed API URL)
 
 # 📌 Features
 ✅ Accepts a number and returns:
@@ -38,7 +37,7 @@ Prerequisites
 Node.js installed (node -v)
 Git installed (git --version)
 1️⃣ Clone the Repository
-git clone https://github.com/YourUsername/number-classification-api.git
+git clone https://github.com/dedestunting/number-classification-api.git
 cd number-classification-api
 
 2️⃣ Install Dependencies
