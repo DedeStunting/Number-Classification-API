@@ -31,10 +31,10 @@ function isPerfect(num) {
 
 // Helper function to check if a number is an Armstrong number
 function isArmstrong(num) {
-    if (num < 0) return false; // Armstrong numbers are only positive
-    const digits = Math.abs(num).toString().split(''); // Handle negative numbers properly
+    const absNum = Math.abs(num); // Handle negative numbers
+    const digits = absNum.toString().split('');
     const sum = digits.reduce((acc, digit) => acc + Math.pow(Number(digit), digits.length), 0);
-    return sum === Math.abs(num);
+    return sum === absNum;
 }
 
 // Function to calculate the digit sum (absolute value for negative numbers)
@@ -60,24 +60,24 @@ async function getFunFact(num) {
 app.get('/api/classify-number', async (req, res) => {
     const { number } = req.query;
 
-    // Validate input
+    // Handle missing number parameter
     if (number === undefined || number.trim() === "") {
-        return res.status(400).json({ error: true, message: "Number parameter is required." });
+        return res.status(400).json({ error: true, number: "" });
     }
 
     // Ensure valid numeric input
     if (!/^[-+]?\d+$/.test(number)) {
-        return res.status(400).json({ error: true, message: "Invalid number format. Must be an integer." });
+        return res.status(400).json({ error: true, number });
     }
 
     const parsedNumber = Number(number);
 
     if (!Number.isInteger(parsedNumber)) {
-        return res.status(400).json({ error: true, message: "Number must be an integer." });
+        return res.status(400).json({ error: true, number });
     }
 
     const properties = [];
-    if (isArmstrong(parsedNumber)) properties.push('armstrong');
+    if (isArmstrong(parsedNumber)) properties.push('armstrong'); // Now correctly classifies negative Armstrong numbers
     if (parsedNumber % 2 === 0) properties.push('even');
     else properties.push('odd');
 
