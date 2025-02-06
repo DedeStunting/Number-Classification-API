@@ -1,26 +1,22 @@
-#Number Classification API 🚀
+# Number Classification API 🚀
 This API takes a number as input and returns its mathematical properties along with a fun fact.
 
-🌍 Live API URL
-👉 Base URL: https://your-deployed-url.com/api/classify-number?number=371
+# 🌍 Live API URL
+👉 Base URL: https://number-classification-api-0.onrender.com/api/classify-number?number=371
 (Replace with your actual deployed API URL)
 
-📌 Features
+# 📌 Features
 ✅ Accepts a number and returns:
-
-Whether it's prime or not
-Whether it's a perfect number
-Whether it's an Armstrong number
-Its parity (even or odd)
+Whether it's prime or not,
+Whether it's a perfect number,
+Whether it's an Armstrong number,
+Its parity (even or odd),
 The sum of its digits
-A fun fact from the Numbers API
-✅ Supports CORS
-✅ Returns JSON responses
-✅ Publicly accessible
 
-⚙️ API Endpoint
+# ⚙️ API Endpoint
 GET /api/classify-number?number=371
 ✅ Successful Response (200 OK)
+
 {
     "number": 371,
     "is_prime": false,
@@ -29,12 +25,15 @@ GET /api/classify-number?number=371
     "digit_sum": 11,
     "fun_fact": "371 is an Armstrong number because 3^3 + 7^3 + 1^3 = 371"
 }
+
 ❌ Error Response (400 Bad Request)
 {
     "number": "alphabet",
     "error": true
 }
-🛠️ Installation & Setup
+
+
+# 🛠️ Installation & Setup
 Prerequisites
 Node.js installed (node -v)
 Git installed (git --version)
@@ -50,12 +49,3 @@ node index.js
 The server should now be running at:
 http://localhost:3000/api/classify-number?number=371
 
-🚀 Deployment
-This API is deployed using (Render/Vercel/Railway). You can deploy it by following these steps:
-
-Push your code to GitHub
-Deploy on Render/Vercel/Railway
-Set build command:
-npm install
-Set start command:
-node index.js
